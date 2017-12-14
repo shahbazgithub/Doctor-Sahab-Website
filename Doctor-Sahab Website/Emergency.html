@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Places Searchbox</title>
+    <style>
+
+      #map {
+        height: 73%;
+      }
+
+        html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin: 20px 20px 0 0;
+        border-radius: 50px 0 0 50px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 50px 25px rgba(0, 0, 0, 0.67);
+        background-color: rgba(21, 243, 232, 0.98);
+        font-family: Roboto;
+      }
+
+      #pac-container {
+        padding-bottom: 120px;
+        margin-right: 120px;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 120px 120px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 130px;
+        font-weight: 500;
+      }
+
+      #pac-input {
+        background-color: rgb(13, 235, 216);
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 500;
+        margin-left: 15px;
+        padding: 0 110px 0 130px;
+        text-overflow: ellipsis;
+        width: 900px;
+      }
+
+      #pac-input:focus {
+        border-color: #042C6D;
+      }
+
+      #title {
+        color: #15F7EB;
+        background-color: #1808EB;
+        font-size: 20px;
+        font-weight: 300;
+        padding: 6px 12px;
+      }
+      #target {
+        width: 345px;
+      }
+
+      .topnav {
+        overflow: hidden;
+        background-color: #333;
+      }
+
+      .topnav a {
+        margin-top: 30px;
+        float: right;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+
+      .topnav a:hover {
+        background-color: #008CBA;
+        color: black;
+      }
+
+      .button {
+          background-color: #008CBA;
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 28px;
+          margin-top: 10px;
+      }
+      .button:hover {
+        background-color: #1fb9ec;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="topnav">
+       <img src="imgs/1.jpg" align="left" width="250" >
+       <a href="Emergency" align="center"><font size="6">Book Emergency</font></a>
+       <a href="Remedies.html" align="center"><font size="6">Home Remedies</font></a>
+       <a href="Doctors.html" align="center"><font size="6">Find doctor</font></a>
+       <a class="active" href="Home.html" align="center"><font size="6">Home </font></a>
+    </div>
+
+    <input id="pac-input" class="controls" type="text" placeholder="Enter your current location ">
+    <div id="map"></div>
+    <script>
+
+      function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -33.8688, lng: 151.2195},
+          zoom: 13,
+          mapTypeId: 'roadmap'
+        });
+
+
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js? key= AIzaSyDuC3uIyfEgD8YO7h6QM_NAva2fO9rykqQ&libraries=places&callback=initAutocomplete"async defer></script>
+
+
+    <center>
+      <a onclick="alert('Ambulance is on its way to your location.')" class="button" id="left">Call Ambulance</a>
+    </center>
+  </body>
+</html>

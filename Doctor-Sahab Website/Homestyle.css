@@ -1,0 +1,90 @@
+body {
+      margin: 0;
+      padding: 0;
+      background-color: lightgray;
+}
+
+/* ----------------------------------------Navigation Bar.*/
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  margin-top: 30px;
+  float: right;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #008CBA;
+  color: black;
+}
+
+
+/* ---------------------------------------------------Doctors.*/
+
+.phase1 {
+  margin-top: 10px;
+    width: 100%;
+    /*border: 1px solid black;*/
+    background-image: url("imgs/back11.jpg");
+    background-size: cover;
+}
+#right {
+  margin-left: 20%;
+}
+.button {
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 28px;
+    margin-top: 400px;
+    margin-bottom: 200px;
+}
+.button:hover {
+  background-color: #1fb9ec;
+}
+.doctors {
+  margin-top: 10px;
+  background-color: #f8f8f8;
+  font-family: "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+}
+.docheading {
+  font-size: 32px;
+  padding-top: 50px;
+}
+.doc_menu {
+  width: 70%;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  color: #008CBA;
+}
+.doc_link {
+  padding: 10px;
+  text-decoration: none;
+  color: #008CBA;
+}
+.doc_link:hover {
+  color: #f7b632;
+}
+.about {
+  width:100%;
+  margin-top: 5px;
+  color: white;
+  background-color: black;
+}
+.info {
+  padding: 30px;
+}
